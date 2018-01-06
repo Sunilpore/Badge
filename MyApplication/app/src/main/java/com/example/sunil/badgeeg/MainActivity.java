@@ -1,9 +1,13 @@
 package com.example.sunil.badgeeg;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -17,13 +21,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button incrStraw,incrLab,incrCal;
     Button decrStraw,decrLab,decrCal;
     Button clear;
+    View actionView;
 
-    static int Straw,Lab,Cal,test;
+    Toolbar myToolbar;
+    MenuItem notifyMenuItem;
+
+    ImageButton mImgBt;
+    TextView mCount;
+    int sumCount;
+
+    static int Straw,Lab,Cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        myToolbar= (Toolbar) findViewById(R.id.toolbar_lay);
+        setSupportActionBar(myToolbar);
 
         tvStraw= (TextView) findViewById(R.id.badge_notify1);
         tvLab= (TextView) findViewById(R.id.badge_notify2);
@@ -55,6 +70,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu_layout,menu);
+        notifyMenuItem=menu.findItem(R.id.count_menuitem);
+            actionView=notifyMenuItem.getActionView();
+
+            if(actionView!=null){
+                mImgBt=actionView.findViewById(R.id.ib_notification_base);
+                mCount=actionView.findViewById(R.id.tv_notification);
+            }
+
+            mImgBt.setOnClickListener(this);
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch(view.getId()){
@@ -62,7 +95,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.strawberry_incr:
                 if(tgStraw.isChecked()){
                     Straw++;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
@@ -70,21 +105,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "ON/OFF"+tgStraw.isChecked()+"\n"+Straw, Toast.LENGTH_SHORT).show();
                 if(tgStraw.isChecked() && Straw>0){
                     Straw--;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
             case R.id.label_incr:
                 if(tgLab.isChecked()){
                     Lab++;
+                    sumCount=Straw+Lab+Cal;
                     tvLab.setText(String.valueOf(Lab));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
             case R.id.label_decr:
                 if(tgLab.isChecked() && Lab>0){
                     Lab--;
+                    sumCount=Straw+Lab+Cal;
                     tvLab.setText(String.valueOf(Lab));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
@@ -92,51 +133,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.calender_incr:
                 if(tgCal.isChecked()){
                     Cal++;
+                    sumCount=Straw+Lab+Cal;
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
             case R.id.calender_decr:
                 if(tgCal.isChecked() && Cal>0){
                     Cal--;
+                    sumCount=Straw+Lab+Cal;
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 break;
 
             case R.id.clearall_button:
                 if(tgStraw.isChecked() && tgLab.isChecked() && tgCal.isChecked()){
                     Straw=0;Lab=0;Cal=0;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
                     tvLab.setText(String.valueOf(Lab));
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgStraw.isChecked() && tgLab.isChecked()){
                     Straw=0;Lab=0;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
                     tvLab.setText(String.valueOf(Lab));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgStraw.isChecked() && tgCal.isChecked()){
                     Straw=0;Cal=0;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgLab.isChecked()&& tgCal.isChecked()){
                     Lab=0;Cal=0;
+                    sumCount=Straw+Lab+Cal;
                     tvLab.setText(String.valueOf(Lab));
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgStraw.isChecked()){
                     Straw=0;
+                    sumCount=Straw+Lab+Cal;
                     tvStraw.setText(String.valueOf(Straw));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgLab.isChecked()){
                     Lab=0;
+                    sumCount=Straw+Lab+Cal;
                     tvLab.setText(String.valueOf(Lab));
+                    mCount.setText(String.valueOf(sumCount));
                 }
                 else if(tgCal.isChecked()){
                     Cal=0;
+                    sumCount=Straw+Lab+Cal;
                     tvCal.setText(String.valueOf(Cal));
+                    mCount.setText(String.valueOf(sumCount));
                 }
+                break;
+
+            case R.id.ib_notification_base:
+                Toast.makeText(this, "Image Button clicked", Toast.LENGTH_SHORT).show();
                 break;
 
         }

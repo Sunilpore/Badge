@@ -8,22 +8,39 @@
     tools:context="com.example.sunil.badgeeg.MainActivity">
 
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:minHeight="?attr/actionBarSize"
+        android:background="@color/colorPrimary"/>
+
+
+
     <RelativeLayout
         android:id="@+id/rel_lay1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="50dp">
+        android:paddingLeft="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/toolbar_lay">
 
         <RelativeLayout
             android:id="@+id/rel_laysub1"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
+            android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/food"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/rel_lay1"
+                android:layout_toLeftOf="@+id/rel_lay3"
+                android:layout_toStartOf="@+id/rel_lay3"
                 android:background="@drawable/food" />
 
         </RelativeLayout>
@@ -48,7 +65,9 @@
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:layout_marginLeft="100dp"
-       android:layout_toRightOf="@id/rel_lay1">
+       android:layout_marginTop="10dp"
+       android:layout_toRightOf="@id/rel_lay1"
+       android:layout_below="@id/toolbar_lay">
 
        <RelativeLayout
            android:id="@+id/rel_laysub2"
